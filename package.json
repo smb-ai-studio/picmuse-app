@@ -1,0 +1,14 @@
+{
+  "name": "picmuse-seo",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "test": "node --test apps/picmuse-site/tests/*.test.mjs",
+    "build": "npm --workspace apps/picmuse-site run build",
+    "dev": "npm --workspace apps/picmuse-site run dev",
+    "preview": "npm --workspace apps/picmuse-site run preview"
+  }
+}
+

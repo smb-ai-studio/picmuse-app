@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PicMuse homepage concept v2</title>
+  <style>
+    :root {
+      --ink: #15151d;
+      --paper: #fbfbff;
+      --white: #ffffff;
+      --mint: #86f7e3;
+      --violet: #8a71ff;
+      --purple: #b45bff;
+      --pink: #f258d3;
+      --muted: #666779;
+      --line: #e5e3f2;
+      --gradient: linear-gradient(135deg, #86f7e3 0%, #79b4ff 32%, #985cff 66%, #f258d3 100%);
+      --shadow: 0 28px 80px rgba(79, 62, 165, .22);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(180deg, rgba(241, 239, 255, .9) 0, rgba(251, 251, 255, 0) 360px),
+        var(--paper);
+      font-family: "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    a { color: inherit; text-decoration: none; }
+    .site { width: min(1240px, calc(100% - 48px)); margin: 0 auto; }
+    .nav { height: 84px; display: flex; align-items: center; justify-content: space-between; }
+    .brand { display: flex; align-items: center; gap: 12px; font-size: 22px; font-weight: 900; }
+    .brand-mark, .app-icon {
+      position: relative;
+      overflow: hidden;
+      background: var(--gradient);
+      box-shadow: 0 14px 30px rgba(165, 88, 255, .28);
+    }
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      color: var(--white);
+      font-size: 16px;
+      font-weight: 950;
+      transform: rotate(-6deg);
+    }
+    .brand-mark::after, .app-icon::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 18% 16%, rgba(255,255,255,.72), transparent 26%);
+      mix-blend-mode: soft-light;
+    }
+    .nav-links { display: flex; gap: 30px; align-items: center; color: #505166; font-size: 14px; font-weight: 700; }
+    .nav-links a:hover { color: var(--purple); }
+    .nav-actions { display: flex; gap: 14px; align-items: center; }
+    .language { color: #55566a; font-size: 13px; font-weight: 800; }
+    .button {
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0 19px;
+      border-radius: 9px;
+      font-size: 13px;
+      font-weight: 900;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary { color: var(--white); background: var(--gradient); box-shadow: 0 16px 34px rgba(151, 93, 255, .28); }
+    .button-dark { color: var(--white); background: #171720; box-shadow: 0 16px 32px rgba(20, 20, 30, .18); }
+    .hero {
+      min-height: 650px;
+      display: grid;
+      grid-template-columns: .86fr 1.14fr;
+      gap: 74px;
+      align-items: center;
+      padding: 52px 0 76px;
+    }
+    .eyebrow {
+      width: fit-content;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 9px 12px;
+      margin-bottom: 26px;
+      color: #3f4274;
+      background: rgba(255,255,255,.74);
+      border: 1px solid rgba(138, 113, 255, .16);
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .7px;
+      text-transform: uppercase;
+    }
+    .eyebrow-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--gradient); }
+    h1 { max-width: 590px; margin: 0; font-size: clamp(50px, 5.8vw, 86px); line-height: .94; letter-spacing: -3.5px; }
+    .gradient-text { background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero-copy { max-width: 500px; margin: 28px 0 32px; color: var(--muted); font-size: 18px; line-height: 1.58; }
+    .hero-actions { display: flex; align-items: center; gap: 13px; flex-wrap: wrap; }
+    .store-note { margin-top: 18px; display: flex; gap: 12px; flex-wrap: wrap; color: var(--muted); font-size: 12px; font-weight: 700; }
+    .store-note span { padding: 7px 10px; background: rgba(255,255,255,.75); border: 1px solid var(--line); border-radius: 999px; }
+    .hero-visual { position: relative; min-height: 520px; }
+    .halo {
+      position: absolute;
+      inset: 8% 4% 4% 0;
+      border-radius: 44px;
+      background:
+        radial-gradient(circle at 22% 14%, rgba(134, 247, 227, .82), transparent 32%),
+        radial-gradient(circle at 80% 18%, rgba(242, 88, 211, .64), transparent 36%),
+        linear-gradient(145deg, rgba(255,255,255,.82), rgba(241,239,255,.56));
+      transform: rotate(2deg);
+    }
+    .phone {
+      position: absolute;
+      left: 8%;
+      top: 6%;
+      width: 38%;
+      min-width: 210px;
+      height: 86%;
+      overflow: hidden;
+      border-radius: 34px;
+      border: 9px solid #171720;
+      background: #0f1018;
+      box-shadow: var(--shadow);
+    }
+    .phone::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 11px;
+      width: 72px;
+      height: 16px;
+      transform: translateX(-50%);
+      border-radius: 999px;
+      background: #06070b;
+      z-index: 4;
+    }
+    .screen { position: absolute; inset: 0; padding: 42px 14px 16px; color: var(--white); background: linear-gradient(180deg, #12131d, #171720); }
+    .screen-title { margin-bottom: 12px; font-size: 12px; font-weight: 900; color: #e9e6ff; }
+    .screen-card {
+      height: 188px;
+      border-radius: 18px;
+      background:
+        radial-gradient(circle at 62% 24%, #f0c6a9 0 13%, transparent 13.5%),
+        linear-gradient(135deg, #97fff1 0 18%, #9b8cff 40%, #f258d3 64%, #262334 64%);
+      position: relative;
+      overflow: hidden;
+    }
+    .screen-card::after {
+      content: "";
+      position: absolute;
+      left: 30%;
+      bottom: -14%;
+      width: 43%;
+      height: 76%;
+      border-radius: 45% 45% 18% 18%;
+      background: linear-gradient(160deg, #f1c4aa 0 30%, #292837 30%);
+      transform: rotate(-6deg);
+    }
+    .prompt { margin-top: 12px; padding: 12px; border-radius: 15px; background: #232431; color: #cac8dd; font-size: 10px; line-height: 1.35; }
+    .screen-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .chip { padding: 7px 9px; border-radius: 999px; color: #15151d; background: var(--mint); font-size: 9px; font-weight: 900; }
+    .app-icon {
+      position: absolute;
+      right: 6%;
+      top: 2%;
+      width: 218px;
+      height: 218px;
+      border-radius: 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 34px;
+      color: var(--white);
+      transform: rotate(4deg);
+    }
+    .app-icon strong { display: block; font-size: 60px; line-height: .78; font-style: italic; letter-spacing: -4px; }
+    .app-icon span { display: block; margin-top: 9px; font-size: 33px; line-height: .84; font-weight: 950; font-style: italic; letter-spacing: -2px; }
+    .shot-strip { position: absolute; right: 0; bottom: 4%; display: grid; grid-template-columns: repeat(3, 132px); gap: 13px; transform: rotate(-3deg); }
+    .shot {
+      height: 218px;
+      overflow: hidden;
+      border-radius: 18px;
+      border: 6px solid var(--white);
+      background: linear-gradient(145deg, #95ffed, #beb0ff 48%, #f693df);
+      box-shadow: 0 18px 36px rgba(84, 63, 174, .19);
+      position: relative;
+    }
+    .shot::before {
+      content: "";
+      position: absolute;
+      inset: 22px 18px 0;
+      border-radius: 20px 20px 0 0;
+      background: radial-gradient(circle at 55% 18%, rgba(255,255,255,.75), transparent 13%), linear-gradient(180deg, #171720, #27283a);
+    }
+    .shot::after {
+      content: attr(data-label);
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      bottom: 11px;
+      padding: 8px;
+      border-radius: 10px;
+      color: #171720;
+      background: rgba(255,255,255,.86);
+      font-size: 10px;
+      font-weight: 950;
+      text-align: center;
+    }
+    .proof {
+      margin: 0 calc(50% - 50vw);
+      padding: 74px max(24px, calc((100vw - 1240px) / 2)) 82px;
+      color: var(--white);
+      background:
+        radial-gradient(circle at 12% 6%, rgba(134,247,227,.28), transparent 30%),
+        radial-gradient(circle at 85% 12%, rgba(242,88,211,.22), transparent 32%),
+        #15151d;
+    }
+    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 30px; margin-bottom: 36px; }
+    .section-head h2 { max-width: 575px; margin: 0; font-size: clamp(36px, 4vw, 58px); line-height: .96; letter-spacing: -2.1px; }
+    .section-head p { max-width: 360px; margin: 0; color: #c9c5df; font-size: 14px; line-height: 1.55; }
+    .proof-grid { display: grid; grid-template-columns: 1.16fr .84fr .84fr; gap: 14px; }
+    .tile {
+      min-height: 278px;
+      position: relative;
+      overflow: hidden;
+      padding: 18px;
+      display: flex;
+      align-items: end;
+      border: 1px solid rgba(255,255,255,.11);
+      background: #242430;
+    }
+    .tile:first-child { min-height: 384px; }
+    .tile::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 57% 24%, #ffc9b2 0 12%, transparent 12.5%),
+        linear-gradient(135deg, #79f5e1 0 24%, #9586ff 44%, #f258d3 74%, #221d2f 74%);
+    }
+    .tile:nth-child(2)::before { background: linear-gradient(135deg, #92ffed, #9d8cff 46%, #201d2f 46%, #f58add); }
+    .tile:nth-child(3)::before { background: linear-gradient(145deg, #191924, #5d48ca 42%, #f258d3 74%, #8cf3e4); }
+    .tile::after {
+      content: "";
+      position: absolute;
+      left: 31%;
+      top: 17%;
+      width: 38%;
+      height: 70%;
+      border-radius: 48% 48% 20% 20%;
+      background: linear-gradient(180deg, #ffd4bd 0 28%, #171720 28%);
+      transform: rotate(-6deg);
+      box-shadow: 0 48px 0 12px rgba(13, 14, 22, .34);
+    }
+    .tile-label { position: relative; z-index: 1; padding: 8px 11px; border-radius: 8px; color: #171720; background: rgba(255,255,255,.9); font-size: 11px; font-weight: 950; }
+    .feature-band { padding: 76px 0 90px; }
+    .feature-band h2 { max-width: 675px; margin: 0 0 36px; font-size: clamp(36px, 4vw, 58px); line-height: .98; letter-spacing: -2px; }
+    .features { display: grid; grid-template-columns: repeat(5, 1fr); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .feature { min-height: 165px; padding: 21px 18px 20px; border-right: 1px solid var(--line); }
+    .feature:first-child { padding-left: 0; }
+    .feature:last-child { border-right: 0; }
+    .feature-number { display: inline-block; padding: 5px 8px; border-radius: 999px; color: #39206b; background: #e9e3ff; font-size: 11px; font-weight: 950; }
+    .feature h3 { margin: 24px 0 9px; font-size: 17px; }
+    .feature p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.48; }
+    .download {
+      margin: 0 calc(50% - 50vw);
+      padding: 70px max(24px, calc((100vw - 1240px) / 2));
+      color: var(--white);
+      background: var(--gradient);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 34px;
+    }
+    .download h2 { max-width: 610px; margin: 0; font-size: clamp(38px, 5vw, 66px); line-height: .94; letter-spacing: -2.6px; }
+    .download p { max-width: 350px; margin: 0 0 18px; color: rgba(255,255,255,.88); font-size: 14px; line-height: 1.55; }
+    .download .button { color: #171720; background: var(--white); }
+    footer { min-height: 92px; display: flex; justify-content: space-between; align-items: center; gap: 20px; color: var(--muted); font-size: 12px; }
+    .footer-links { display: flex; gap: 18px; flex-wrap: wrap; }
+    @media (max-width: 920px) {
+      .site { width: min(100% - 32px, 680px); }
+      .nav-links { display: none; }
+      .hero { display: block; padding-top: 44px; }
+      h1 { font-size: clamp(48px, 14vw, 76px); }
+      .hero-visual { min-height: 500px; margin-top: 34px; }
+      .phone { left: 2%; width: 42%; }
+      .app-icon { width: 174px; height: 174px; right: 0; }
+      .app-icon strong { font-size: 48px; }
+      .app-icon span { font-size: 27px; }
+      .shot-strip { grid-template-columns: repeat(3, 112px); }
+      .shot { height: 190px; }
+      .proof { padding: 60px 16px 66px; }
+      .section-head { display: block; }
+      .section-head p { margin-top: 18px; }
+      .proof-grid { grid-template-columns: 1fr 1fr; }
+      .tile:first-child { grid-column: span 2; min-height: 330px; }
+      .features { grid-template-columns: 1fr 1fr; }
+      .feature { border-bottom: 1px solid var(--line); }
+      .feature:nth-child(2n) { border-right: 0; }
+      .download { display: block; padding: 58px 16px; }
+      .download p { margin-top: 20px; }
+      footer { display: block; padding: 28px 0; }
+      .footer-links { margin-top: 16px; }
+    }
+    @media (max-width: 460px) {
+      .nav { height: 72px; }
+      .brand { font-size: 19px; }
+      .language { display: none; }
+      .button { min-height: 44px; padding: 0 13px; font-size: 12px; }
+      .hero-copy { font-size: 16px; }
+      .hero-visual { min-height: 420px; }
+      .phone { min-width: 0; width: 48%; height: 82%; border-radius: 26px; border-width: 7px; }
+      .app-icon { width: 132px; height: 132px; padding: 22px; border-radius: 30px; }
+      .app-icon strong { font-size: 37px; }
+      .app-icon span { font-size: 21px; }
+      .shot-strip { right: -8px; bottom: 2%; grid-template-columns: repeat(2, 104px); }
+      .shot { height: 174px; }
+      .shot:nth-child(3) { display: none; }
+      .proof-grid, .features { display: block; }
+      .tile, .tile:first-child { min-height: 260px; margin-bottom: 12px; }
+      .feature { border-right: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="site">
+    <header class="nav">
+      <a class="brand" href="#"><span class="brand-mark">P</span>PicMuse</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#features">Features</a>
+        <a href="#proof">Examples</a>
+        <a href="#download">Download</a>
+      </nav>
+      <div class="nav-actions">
+        <span class="language">EN</span>
+        <a class="button button-primary" href="#download">Get the app</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <div class="eyebrow"><span class="eyebrow-dot"></span> Official Android app</div>
+          <h1>Create AI photos and videos with <span class="gradient-text">PicMuse.</span></h1>
+          <p class="hero-copy">Turn prompts, portraits, and everyday photos into share-ready images and videos. PicMuse brings AI video generation, image-to-video, AI image creation, photo editing, and trend templates to your phone.</p>
+          <div class="hero-actions">
+            <a class="button button-dark" href="#download">Download PicMuse for Android</a>
+            <a class="button button-primary" href="#proof">View examples</a>
+          </div>
+          <div class="store-note">
+            <span>Google Play official link</span>
+            <span>Some features are 18+</span>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-label="PicMuse app preview">
+          <div class="halo"></div>
+          <div class="phone">
+            <div class="screen">
+              <div class="screen-title">PicMuse Create</div>
+              <div class="screen-card"></div>
+              <div class="prompt">Prompt: cinematic portrait, soft light, colorful motion background</div>
+              <div class="screen-chips">
+                <span class="chip">AI Video</span>
+                <span class="chip">Image to Video</span>
+                <span class="chip">Templates</span>
+              </div>
+            </div>
+          </div>
+          <div class="app-icon">
+            <strong>Pic</strong>
+            <span>Muse</span>
+          </div>
+          <div class="shot-strip">
+            <div class="shot" data-label="AI video"></div>
+            <div class="shot" data-label="Image to video"></div>
+            <div class="shot" data-label="AI image"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="proof" id="proof">
+        <div class="section-head">
+          <h2>Built for creators who want the result first.</h2>
+          <p>Show the transformation, then explain the workflow. Every page should help search visitors understand what PicMuse can do before they tap download.</p>
+        </div>
+        <div class="proof-grid">
+          <div class="tile"><span class="tile-label">AI video generator</span></div>
+          <div class="tile"><span class="tile-label">Image to video</span></div>
+          <div class="tile"><span class="tile-label">AI image generator</span></div>
+        </div>
+      </section>
+
+      <section class="feature-band" id="features">
+        <h2>One mobile app for videos, images, edits, and trend ideas.</h2>
+        <div class="features">
+          <article class="feature">
+            <span class="feature-number">01</span>
+            <h3>AI video generator</h3>
+            <p>Create short AI videos from prompts, photos, and creative ideas.</p>
+          </article>
+          <article class="feature">
+            <span class="feature-number">02</span>
+            <h3>Image to video</h3>
+            <p>Add motion to still images for social and creative clips.</p>
+          </article>
+          <article class="feature">
+            <span class="feature-number">03</span>
+            <h3>AI image generator</h3>
+            <p>Turn text prompts into stylized images and visual concepts.</p>
+          </article>
+          <article class="feature">
+            <span class="feature-number">04</span>
+            <h3>Photo editor</h3>
+            <p>Enhance, clean, and refine everyday photos with AI tools.</p>
+          </article>
+          <article class="feature">
+            <span class="feature-number">05</span>
+            <h3>Trend templates</h3>
+            <p>Start faster with creative inspiration and social-ready templates.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="download" id="download">
+        <h2>Start creating on Android.</h2>
+        <div>
+          <p>Download PicMuse from the official Google Play listing. iOS currently appears as PicSelf and will be connected in a later phase.</p>
+          <a class="button" href="https://play.google.com/store/apps/details?id=com.smb.picmuse">Download on Google Play</a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>© 2026 PicMuse</span>
+      <div class="footer-links">
+        <a href="#">About</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">User Agreement</a>
+        <a href="#">Contact</a>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

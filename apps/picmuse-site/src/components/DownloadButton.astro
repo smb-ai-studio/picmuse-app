@@ -1,0 +1,27 @@
+---
+import { buildGooglePlayUrl, storeClickPayload } from "@/utils/download";
+
+type Props = {
+  contentId: string;
+  ctaPosition: "hero" | "feature" | "showcase" | "download-page" | "footer";
+  pageType: string;
+  label?: string;
+  variant?: "primary" | "secondary";
+};
+
+const { contentId, ctaPosition, pageType, label = "Download on Google Play", variant = "primary" } = Astro.props;
+const href = buildGooglePlayUrl({ contentId, cta_position: ctaPosition, pageType });
+const payload = storeClickPayload({ contentId, cta_position: ctaPosition, pageType });
+---
+
+<a
+  class:list={["download-button", variant === "secondary" && "download-button-secondary"]}
+  href={href}
+  data-event-name="store_click"
+  data-event-payload={JSON.stringify(payload)}
+  rel="noopener noreferrer"
+>
+  <span class="play-icon" aria-hidden="true"></span>
+  <span>{label}</span>
+</a>
+

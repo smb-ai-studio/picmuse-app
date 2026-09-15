@@ -1,0 +1,19 @@
+---
+import { product } from "@/config/product";
+---
+
+<footer class="site-footer">
+  <div>
+    <a class="brand footer-brand" href="/en/" aria-label="PicMuse home">
+      <span class="brand-mark" aria-hidden="true">PM</span>
+      <span>{product.brandName}</span>
+    </a>
+    <p>Official PicMuse website for Android downloads and product updates.</p>
+  </div>
+  <nav aria-label="Legal links">
+    <a href={product.legalLinks.privacy} rel="noopener noreferrer">Privacy</a>
+    <a href={product.legalLinks.terms} rel="noopener noreferrer">Terms</a>
+    <a href={product.legalLinks.userAgreement} rel="noopener noreferrer">User Agreement</a>
+  </nav>
+</footer>
+

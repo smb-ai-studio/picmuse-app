@@ -1,0 +1,533 @@
+---
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import { canonicalUrl, type SeoInput } from "@/utils/seo";
+
+type Props = SeoInput & {
+  jsonLd: Record<string, unknown> | Record<string, unknown>[];
+};
+
+const { title, description, path, jsonLd } = Astro.props;
+const canonical = canonicalUrl(path);
+const jsonLdValue = JSON.stringify(jsonLd);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json" is:inline set:html={jsonLdValue}></script>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      document.querySelectorAll("[data-event-name='store_click']").forEach((element) => {
+        element.addEventListener("click", () => {
+          const payload = JSON.parse(element.getAttribute("data-event-payload") || "{}");
+          if (typeof window.gtag === "function") {
+            window.gtag("event", "store_click", payload);
+          }
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({ event: "store_click", ...payload });
+        });
+      });
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    color-scheme: light;
+    --ink: #111827;
+    --muted: #5d667a;
+    --line: #e5e9f2;
+    --surface: #ffffff;
+    --soft: #f6f9fc;
+    --cyan: #20d5c7;
+    --blue: #4f8dff;
+    --violet: #8b5cf6;
+    --pink: #f64fa1;
+    --deep: #181028;
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: var(--surface);
+    color: var(--ink);
+    letter-spacing: 0;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  p {
+    line-height: 1.65;
+  }
+
+  .site-header,
+  .site-footer,
+  .hero,
+  .section,
+  .download-hero,
+  .faq-section {
+    width: min(1120px, calc(100% - 40px));
+    margin-inline: auto;
+  }
+
+  .site-header {
+    min-height: 76px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .brand-mark {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--cyan), var(--blue) 42%, var(--violet) 68%, var(--pink));
+    box-shadow: 0 12px 30px rgba(79, 141, 255, 0.28);
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 18px;
+    flex-wrap: wrap;
+    font-size: 14px;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--muted);
+    font-weight: 600;
+  }
+
+  .locale-pill {
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 6px 10px;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .hero,
+  .download-hero {
+    padding: 64px 0 38px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 430px);
+    gap: 52px;
+    align-items: center;
+  }
+
+  .eyebrow {
+    margin: 0 0 12px;
+    color: #6750d8;
+    font-size: 13px;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+  }
+
+  h1,
+  h2,
+  h3 {
+    margin: 0;
+    line-height: 1.05;
+    letter-spacing: 0;
+  }
+
+  h1 {
+    max-width: 780px;
+    font-size: clamp(44px, 7vw, 78px);
+  }
+
+  h2 {
+    max-width: 780px;
+    font-size: clamp(30px, 4vw, 48px);
+  }
+
+  h3 {
+    font-size: 22px;
+  }
+
+  .hero-copy > p,
+  .download-copy > p,
+  .section-heading > p {
+    max-width: 680px;
+    color: var(--muted);
+    font-size: 18px;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 28px;
+  }
+
+  .download-button {
+    display: inline-flex;
+    min-height: 52px;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-radius: 16px;
+    padding: 14px 20px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--cyan), var(--blue) 38%, var(--violet) 70%, var(--pink));
+    box-shadow: 0 18px 36px rgba(139, 92, 246, 0.28);
+  }
+
+  .download-button-secondary {
+    color: var(--ink);
+    background: #fff;
+    border: 1px solid var(--line);
+    box-shadow: none;
+  }
+
+  .play-icon {
+    width: 0;
+    height: 0;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-left: 13px solid currentColor;
+  }
+
+  .support-note,
+  .fine-print {
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  .hero-visual {
+    position: relative;
+    min-height: 470px;
+  }
+
+  .app-window {
+    position: relative;
+    min-height: 470px;
+    border-radius: 34px;
+    padding: 18px;
+    background: linear-gradient(145deg, #111827, #2e1b58);
+    overflow: hidden;
+    box-shadow: 0 28px 70px rgba(17, 24, 39, 0.28);
+  }
+
+  .app-window::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 10%, rgba(32, 213, 199, 0.36), transparent 28%),
+      radial-gradient(circle at 78% 22%, rgba(246, 79, 161, 0.32), transparent 26%),
+      linear-gradient(160deg, transparent, rgba(255,255,255,0.12));
+  }
+
+  .creative-card {
+    position: relative;
+    z-index: 1;
+    min-height: 310px;
+    border-radius: 24px;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background:
+      linear-gradient(135deg, rgba(255,255,255,0.92), rgba(255,255,255,0.68)),
+      linear-gradient(135deg, var(--cyan), var(--violet));
+  }
+
+  .creative-card span {
+    align-self: flex-start;
+    border-radius: 999px;
+    padding: 8px 12px;
+    background: rgba(17, 24, 39, 0.78);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  .creative-card strong {
+    max-width: 280px;
+    color: var(--deep);
+    font-size: 34px;
+    line-height: 1.05;
+  }
+
+  .mini-panels {
+    position: relative;
+    z-index: 1;
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .mini-panel {
+    min-height: 108px;
+    border-radius: 20px;
+    padding: 14px;
+    color: #fff;
+    display: flex;
+    align-items: end;
+    font-weight: 800;
+    background: linear-gradient(135deg, rgba(32, 213, 199, 0.8), rgba(79, 141, 255, 0.65));
+  }
+
+  .mini-panel:nth-child(2) {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.88), rgba(246, 79, 161, 0.7));
+  }
+
+  .section {
+    padding: 56px 0;
+  }
+
+  .section-heading {
+    margin-bottom: 28px;
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .feature-card {
+    min-height: 240px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 20px;
+    background: #fff;
+  }
+
+  .feature-card span {
+    display: inline-block;
+    margin-bottom: 38px;
+    color: #6750d8;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+
+  .feature-card p,
+  .faq-card p {
+    color: var(--muted);
+  }
+
+  .showcase-grid {
+    display: grid;
+    grid-template-columns: 360px minmax(0, 1fr);
+    gap: 20px;
+    align-items: stretch;
+  }
+
+  .phone-frame {
+    border-radius: 34px;
+    padding: 16px;
+    background: var(--deep);
+    color: #fff;
+  }
+
+  .phone-top {
+    width: 72px;
+    height: 6px;
+    margin: 0 auto 16px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.4);
+  }
+
+  .media-tile {
+    min-height: 180px;
+    border-radius: 8px;
+    padding: 18px;
+    display: flex;
+    align-items: end;
+    color: #fff;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--cyan), var(--blue), var(--violet));
+  }
+
+  .media-video {
+    min-height: 340px;
+  }
+
+  .media-image {
+    background: linear-gradient(135deg, #111827, var(--blue));
+  }
+
+  .media-edit {
+    background: linear-gradient(135deg, var(--violet), var(--pink));
+  }
+
+  .media-template {
+    background: linear-gradient(135deg, var(--cyan), #12a89c, var(--blue));
+  }
+
+  .prompt-row {
+    margin-top: 14px;
+    display: grid;
+    gap: 4px;
+  }
+
+  .prompt-row span {
+    color: rgba(255,255,255,0.62);
+    font-size: 12px;
+    text-transform: uppercase;
+  }
+
+  .result-stack {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .download-band {
+    margin-top: 24px;
+    border-radius: 28px;
+    padding: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 22px;
+    background: var(--soft);
+  }
+
+  .faq-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .faq-card {
+    border-top: 1px solid var(--line);
+    padding-top: 18px;
+  }
+
+  .site-footer {
+    margin-top: 64px;
+    padding: 34px 0 46px;
+    border-top: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    color: var(--muted);
+  }
+
+  .footer-brand {
+    color: var(--ink);
+  }
+
+  .site-footer nav {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .site-footer a {
+    text-decoration: none;
+    font-weight: 700;
+  }
+
+  @media (max-width: 900px) {
+    .hero,
+    .download-hero,
+    .showcase-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .feature-grid,
+    .result-stack,
+    .faq-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .hero-visual,
+    .app-window {
+      min-height: 420px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .site-header,
+    .site-footer,
+    .download-band {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .site-header,
+    .site-footer,
+    .hero,
+    .section,
+    .download-hero,
+    .faq-section {
+      width: min(100% - 28px, 1120px);
+    }
+
+    .hero,
+    .download-hero {
+      padding-top: 34px;
+      gap: 30px;
+    }
+
+    h1 {
+      font-size: 42px;
+    }
+
+    .feature-grid,
+    .result-stack,
+    .faq-grid,
+    .mini-panels {
+      grid-template-columns: 1fr;
+    }
+
+    .creative-card strong {
+      font-size: 28px;
+    }
+
+    .hero-visual,
+    .app-window {
+      min-height: 390px;
+    }
+  }
+</style>

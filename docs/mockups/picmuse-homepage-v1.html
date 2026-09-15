@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PicMuse homepage concept</title>
+  <style>
+    :root {
+      --ink: #171717;
+      --paper: #f7f6f2;
+      --white: #fff;
+      --coral: #ff5c4d;
+      --cyan: #21b6c7;
+      --lime: #c7e85d;
+      --muted: #6d6d68;
+      --line: #deddd7;
+      --shadow: 0 24px 70px rgba(23, 23, 23, .15);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    a { color: inherit; text-decoration: none; }
+    .site {
+      width: min(1240px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+    .nav {
+      height: 86px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+    }
+    .brand {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      font-weight: 800;
+      font-size: 21px;
+      letter-spacing: -.4px;
+    }
+    .brand-mark {
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      background: var(--coral);
+      color: var(--white);
+      border-radius: 8px;
+      font-size: 14px;
+      transform: rotate(-8deg);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      font-size: 14px;
+      color: #464640;
+    }
+    .nav-links a:hover { color: var(--coral); }
+    .nav-actions { display: flex; align-items: center; gap: 12px; }
+    .language {
+      font-size: 13px;
+      padding: 10px 0;
+      color: #464640;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .1px;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary {
+      color: var(--white);
+      background: var(--coral);
+      box-shadow: 0 10px 22px rgba(255, 92, 77, .23);
+    }
+    .button-dark { color: var(--white); background: var(--ink); }
+    .hero {
+      min-height: 610px;
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 72px;
+      align-items: center;
+      padding: 74px 0 78px;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 24px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      color: #55554f;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 22px;
+      height: 3px;
+      background: var(--coral);
+    }
+    h1 {
+      max-width: 560px;
+      margin: 0;
+      font-size: clamp(48px, 6vw, 82px);
+      line-height: .94;
+      letter-spacing: -3.4px;
+    }
+    .hero-copy {
+      max-width: 470px;
+      margin: 28px 0 32px;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.55;
+    }
+    .hero-note {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .hero-art {
+      position: relative;
+      min-height: 430px;
+    }
+    .hero-art::before {
+      content: "";
+      position: absolute;
+      top: 28px;
+      left: 6%;
+      width: 84%;
+      height: 84%;
+      background: var(--cyan);
+      transform: rotate(4deg);
+      border-radius: 18px;
+    }
+    .photo {
+      position: absolute;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border: 8px solid var(--white);
+    }
+    .photo-main {
+      top: 0;
+      right: 4%;
+      width: 64%;
+      height: 90%;
+      transform: rotate(3deg);
+      background:
+        linear-gradient(145deg, rgba(31, 50, 37, .1), rgba(232, 139, 92, .25)),
+        radial-gradient(circle at 70% 22%, #f2c9ae 0 12%, transparent 12.5%),
+        linear-gradient(135deg, #b0c5b0 0 41%, #e5a77e 41% 69%, #463b47 69%);
+    }
+    .photo-main::before {
+      content: "";
+      position: absolute;
+      inset: 14% 16% 0;
+      border-radius: 48% 48% 0 0;
+      background: linear-gradient(160deg, #e1aa8a 0 26%, #2b2730 26% 71%, #16191d 71%);
+      transform: rotate(-7deg);
+    }
+    .photo-main::after {
+      content: "AI PORTRAIT";
+      position: absolute;
+      left: 16px;
+      bottom: 14px;
+      color: var(--white);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+    }
+    .photo-small {
+      left: 0;
+      bottom: 3%;
+      width: 47%;
+      height: 47%;
+      transform: rotate(-8deg);
+      background:
+        radial-gradient(circle at 58% 36%, #f0c0a1 0 13%, transparent 13.5%),
+        linear-gradient(145deg, #f2d37b 0 43%, #cb5e5b 43% 70%, #263949 70%);
+    }
+    .photo-small::after {
+      content: "IMAGE TO VIDEO";
+      position: absolute;
+      left: 12px;
+      bottom: 12px;
+      color: var(--white);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+    .sticker {
+      position: absolute;
+      right: 0;
+      bottom: 4%;
+      display: grid;
+      place-items: center;
+      width: 112px;
+      height: 112px;
+      padding: 16px;
+      text-align: center;
+      background: var(--lime);
+      border-radius: 50%;
+      font-size: 12px;
+      font-weight: 900;
+      line-height: 1.1;
+      transform: rotate(10deg);
+    }
+    .proof {
+      margin: 0 calc(50% - 50vw);
+      padding: 72px max(24px, calc((100vw - 1240px) / 2)) 84px;
+      background: var(--ink);
+      color: var(--white);
+    }
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 34px;
+    }
+    .section-head h2 {
+      max-width: 530px;
+      margin: 0;
+      font-size: clamp(34px, 4vw, 54px);
+      line-height: .98;
+      letter-spacing: -2px;
+    }
+    .section-head p {
+      max-width: 330px;
+      margin: 0;
+      color: #aaa9a1;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .proof-grid {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr .8fr;
+      gap: 14px;
+    }
+    .proof-tile {
+      min-height: 284px;
+      position: relative;
+      overflow: hidden;
+      padding: 18px;
+      display: flex;
+      align-items: end;
+      background: #2b2b29;
+    }
+    .proof-tile:first-child { min-height: 386px; }
+    .proof-tile::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(145deg, #d2a783, #5b3f4b 47%, #1c3233);
+    }
+    .proof-tile:nth-child(2)::before { background: linear-gradient(135deg, #e6d18e, #ba6c5e 48%, #284e5a); }
+    .proof-tile:nth-child(3)::before { background: linear-gradient(145deg, #83b6c3, #5f4261 52%, #eea66d); }
+    .proof-tile::after {
+      content: "";
+      position: absolute;
+      width: 42%;
+      height: 78%;
+      left: 29%;
+      top: 12%;
+      border-radius: 48% 48% 20% 20%;
+      background: rgba(255, 222, 193, .72);
+      box-shadow: 0 50px 0 12px rgba(19, 24, 28, .55);
+      transform: rotate(-8deg);
+    }
+    .proof-label {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      padding: 8px 10px;
+      color: var(--ink);
+      background: var(--white);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .4px;
+    }
+    .feature-band {
+      padding: 74px 0 90px;
+    }
+    .feature-band h2 {
+      max-width: 580px;
+      margin: 0 0 34px;
+      font-size: clamp(35px, 4vw, 56px);
+      line-height: 1;
+      letter-spacing: -2px;
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .feature {
+      min-height: 154px;
+      padding: 20px 18px 20px 0;
+      border-right: 1px solid var(--line);
+    }
+    .feature + .feature { padding-left: 18px; }
+    .feature:last-child { border-right: 0; }
+    .feature-number {
+      color: var(--coral);
+      font-size: 12px;
+      font-weight: 900;
+    }
+    .feature h3 { margin: 22px 0 8px; font-size: 17px; }
+    .feature p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.45; }
+    .download {
+      margin: 0 calc(50% - 50vw);
+      padding: 72px max(24px, calc((100vw - 1240px) / 2));
+      background: var(--coral);
+      color: var(--white);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 32px;
+    }
+    .download h2 { max-width: 560px; margin: 0; font-size: clamp(36px, 5vw, 64px); line-height: .95; letter-spacing: -2.5px; }
+    .download p { max-width: 310px; margin: 0; color: #ffe3df; font-size: 14px; line-height: 1.5; }
+    .download .button { background: var(--white); color: var(--ink); }
+    footer {
+      min-height: 86px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .footer-links { display: flex; gap: 18px; }
+    @media (max-width: 860px) {
+      .site { width: min(100% - 32px, 620px); }
+      .nav { height: 72px; }
+      .nav-links { display: none; }
+      .language { display: none; }
+      .hero { display: block; padding: 56px 0 64px; }
+      h1 { font-size: clamp(48px, 15vw, 72px); }
+      .hero-art { min-height: 390px; margin-top: 34px; }
+      .proof { padding: 58px 16px 66px; }
+      .section-head { display: block; }
+      .section-head p { margin-top: 18px; }
+      .proof-grid { grid-template-columns: 1fr 1fr; }
+      .proof-tile:first-child { grid-column: span 2; min-height: 310px; }
+      .features { grid-template-columns: 1fr 1fr; }
+      .feature { border-bottom: 1px solid var(--line); }
+      .feature:nth-child(2) { border-right: 0; }
+      .feature:nth-last-child(-n+2) { border-bottom: 0; }
+      .feature:nth-child(3) { padding-left: 0; }
+      .download { display: block; padding: 58px 16px; }
+      .download p { margin: 22px 0; }
+      footer { display: block; padding: 26px 0; }
+      .footer-links { margin-top: 18px; flex-wrap: wrap; }
+    }
+    @media (max-width: 430px) {
+      .nav-actions .button { padding: 0 12px; font-size: 11px; }
+      .hero-art { min-height: 320px; }
+      .photo-main { width: 65%; height: 88%; }
+      .photo-small { width: 50%; height: 48%; }
+      .sticker { width: 86px; height: 86px; font-size: 10px; padding: 10px; }
+      .proof-grid { display: block; }
+      .proof-tile, .proof-tile:first-child { min-height: 260px; margin-bottom: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="site">
+    <header class="nav">
+      <a class="brand" href="#"><span class="brand-mark">P</span>PicMuse</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#features">Features</a>
+        <a href="#proof">Explore</a>
+        <a href="#download">Download</a>
+      </nav>
+      <div class="nav-actions">
+        <span class="language">EN</span>
+        <a class="button button-primary" href="#download">Get the app</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <div class="eyebrow">Create beyond the ordinary</div>
+          <h1>Make the idea visible.</h1>
+          <p class="hero-copy">Create images and videos that feel like you. PicMuse brings powerful AI creation tools to your phone, from a single prompt to a whole visual story.</p>
+          <a class="button button-dark" href="#download">Download PicMuse for Android <span aria-hidden="true">&nbsp;↗</span></a>
+          <p class="hero-note">Official PicMuse app on Google Play · 18+ features available</p>
+        </div>
+        <div class="hero-art" aria-label="PicMuse creation examples">
+          <div class="photo photo-main"></div>
+          <div class="photo photo-small"></div>
+          <div class="sticker">TURN<br>IMAGINATION<br>INTO MOTION</div>
+        </div>
+      </section>
+
+      <section class="proof" id="proof">
+        <div class="section-head">
+          <h2>See what you can create.</h2>
+          <p>Start with a photo, a sentence, or just a direction. Shape the result until it feels unmistakably yours.</p>
+        </div>
+        <div class="proof-grid">
+          <div class="proof-tile"><span class="proof-label">AI portrait</span></div>
+          <div class="proof-tile"><span class="proof-label">Image to video</span></div>
+          <div class="proof-tile"><span class="proof-label">Magic Brush</span></div>
+        </div>
+      </section>
+
+      <section class="feature-band" id="features">
+        <h2>One app. More ways to make something worth sharing.</h2>
+        <div class="features">
+          <article class="feature">
+            <div class="feature-number">01</div>
+            <h3>AI images</h3>
+            <p>Turn ideas into polished visuals with text or image prompts.</p>
+          </article>
+          <article class="feature">
+            <div class="feature-number">02</div>
+            <h3>Image to video</h3>
+            <p>Give still images movement, rhythm, and a reason to replay.</p>
+          </article>
+          <article class="feature">
+            <div class="feature-number">03</div>
+            <h3>Text to video</h3>
+            <p>Describe a scene and build a visual starting point in seconds.</p>
+          </article>
+          <article class="feature">
+            <div class="feature-number">04</div>
+            <h3>Photo editing</h3>
+            <p>Refine portraits and details with flexible AI editing tools.</p>
+          </article>
+          <article class="feature">
+            <div class="feature-number">05</div>
+            <h3>Magic Brush</h3>
+            <p>Point to what needs to change and make the edit feel natural.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="download" id="download">
+        <h2>Your next idea is already waiting.</h2>
+        <div>
+          <p>Download the official PicMuse Android app and start creating from your phone.</p>
+          <a class="button" href="https://play.google.com/store/apps/details?id=com.smb.picmuse">Download on Google Play&nbsp; ↗</a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>© 2026 PicMuse</span>
+      <div class="footer-links">
+        <a href="#">About</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">User Agreement</a>
+        <a href="#">Contact</a>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

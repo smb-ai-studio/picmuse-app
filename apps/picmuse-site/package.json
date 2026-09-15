@@ -1,0 +1,17 @@
+{
+  "name": "@picmuse/site",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "ASTRO_TELEMETRY_DISABLED=1 astro dev --host 127.0.0.1",
+    "build": "ASTRO_TELEMETRY_DISABLED=1 astro check && ASTRO_TELEMETRY_DISABLED=1 astro build",
+    "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview --host 127.0.0.1",
+    "test": "node --test tests/*.test.mjs"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.10",
+    "astro": "^7.3.2",
+    "typescript": "^6.0.3"
+  }
+}

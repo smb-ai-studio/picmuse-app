@@ -1,0 +1,58 @@
+---
+import DownloadButton from "@/components/DownloadButton.astro";
+import FeatureGrid from "@/components/FeatureGrid.astro";
+import ProductShowcase from "@/components/ProductShowcase.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { product } from "@/config/product";
+import { softwareApplicationJsonLd } from "@/utils/seo";
+
+const contentId = "home-en";
+const title = "PicMuse - AI video and image creation app for Android";
+const description = "Create AI videos, turn images into motion, generate images, edit photos, and start from trends with PicMuse for Android.";
+---
+
+<BaseLayout title={title} description={description} path="/en/" jsonLd={softwareApplicationJsonLd("/en/")}>
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow">Official Android download</p>
+      <h1>PicMuse turns prompts and photos into social-ready AI visuals.</h1>
+      <p>
+        Create AI videos, animate still images, generate new artwork, and polish photos from one mobile app. The first official website release focuses on Android downloads through Google Play.
+      </p>
+      <div class="hero-actions">
+        <DownloadButton contentId={contentId} ctaPosition="hero" pageType="home" />
+        <a class="download-button download-button-secondary" href="/en/download/">View download details</a>
+      </div>
+      <p class="support-note">
+        Android package: {product.android.packageName}. iOS currently appears as PicSelf and is planned for a later website phase.
+      </p>
+    </div>
+    <div class="hero-visual" aria-label="PicMuse creative preview">
+      <div class="app-window">
+        <div class="creative-card">
+          <span>AI Video Generator</span>
+          <strong>Prompt, photo, motion, and share-ready output.</strong>
+        </div>
+        <div class="mini-panels" aria-hidden="true">
+          <div class="mini-panel">Image to Video</div>
+          <div class="mini-panel">AI Photo Editor</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <FeatureGrid />
+  <ProductShowcase />
+
+  <section class="section">
+    <div class="download-band">
+      <div>
+        <p class="eyebrow">Start on Android</p>
+        <h2>Download PicMuse from Google Play.</h2>
+        <p class="fine-print">Some portrait and body-editing features are intended for adults. They are handled separately from the main homepage experience.</p>
+      </div>
+      <DownloadButton contentId={contentId} ctaPosition="showcase" pageType="home" />
+    </div>
+  </section>
+</BaseLayout>
+

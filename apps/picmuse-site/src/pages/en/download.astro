@@ -1,0 +1,60 @@
+---
+import DownloadButton from "@/components/DownloadButton.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { product } from "@/config/product";
+import { softwareApplicationJsonLd } from "@/utils/seo";
+
+const contentId = "download-en";
+const title = "Download PicMuse for Android - Official Google Play link";
+const description = "Download PicMuse for Android from the official Google Play listing. The first PicMuse website release focuses on Android.";
+---
+
+<BaseLayout title={title} description={description} path="/en/download/" jsonLd={softwareApplicationJsonLd("/en/download/")}>
+  <section class="download-hero">
+    <div class="download-copy">
+      <p class="eyebrow">Download PicMuse</p>
+      <h1>Start creating with PicMuse on Android.</h1>
+      <p>
+        PicMuse is available for Android through the official Google Play listing. This website does not provide browser-based generation, account management, subscriptions, or credit tools.
+      </p>
+      <div class="hero-actions">
+        <DownloadButton contentId={contentId} ctaPosition="download-page" pageType="download" />
+      </div>
+      <p class="support-note">
+        Developer: {product.legalName}. Package name: {product.android.packageName}.
+      </p>
+    </div>
+    <div class="app-window" aria-label="Download summary">
+      <div class="creative-card">
+        <span>Android</span>
+        <strong>Official Google Play download for PicMuse.</strong>
+      </div>
+      <div class="mini-panels" aria-hidden="true">
+        <div class="mini-panel">AI Video</div>
+        <div class="mini-panel">Photo Editing</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq-section">
+    <div class="section-heading">
+      <p class="eyebrow">Download FAQ</p>
+      <h2>Platform details for the first release.</h2>
+    </div>
+    <div class="faq-grid">
+      <article class="faq-card">
+        <h3>Is there a web generator?</h3>
+        <p>No. The first website release is a static official site for product information, SEO content, and Android download conversion.</p>
+      </article>
+      <article class="faq-card">
+        <h3>What about iOS?</h3>
+        <p>The iOS app currently appears as PicSelf. PicMuse and PicSelf share accounts, works, subscriptions, and credits, but iOS is not the primary CTA in this release.</p>
+      </article>
+      <article class="faq-card">
+        <h3>Is PicMuse for adults?</h3>
+        <p>Some portrait and body-editing features are intended for adults. The homepage keeps those features out of the primary visual flow.</p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>
+
