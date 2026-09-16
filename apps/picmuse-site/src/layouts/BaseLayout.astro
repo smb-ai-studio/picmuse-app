@@ -1,6 +1,7 @@
 ---
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
+import { product } from "@/config/product";
 import { canonicalUrl, type SeoInput } from "@/utils/seo";
 
 type Props = SeoInput & {
@@ -10,6 +11,7 @@ type Props = SeoInput & {
 const { title, description, path, jsonLd } = Astro.props;
 const canonical = canonicalUrl(path);
 const jsonLdValue = JSON.stringify(jsonLd);
+const gtmContainerId = product.analytics.gtm.containerId;
 ---
 
 <!doctype html>
@@ -25,9 +27,24 @@ const jsonLdValue = JSON.stringify(jsonLd);
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
     <meta name="twitter:card" content="summary_large_image" />
+    <script is:inline define:vars={{ gtmContainerId }}>
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({"gtm.start":
+      new Date().getTime(),event:"gtm.js"});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src=
+      "https://www.googletagmanager.com/gtm.js?id="+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,"script","dataLayer",gtmContainerId);
+    </script>
     <script type="application/ld+json" is:inline set:html={jsonLdValue}></script>
   </head>
   <body>
+    <noscript>
+      <iframe
+        src={`https://www.googletagmanager.com/ns.html?id=${gtmContainerId}`}
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"
+      ></iframe>
+    </noscript>
     <Header />
     <main>
       <slot />

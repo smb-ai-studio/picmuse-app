@@ -27,6 +27,9 @@ export const product = {
   },
   analytics: {
     measurementIdEnv: "PUBLIC_GA_MEASUREMENT_ID",
+    gtm: {
+      containerId: "GTM-MNQDVZ6C"
+    },
     events: {
       storeClick: "store_click"
     }
@@ -67,4 +70,3 @@ export const homepageFeatures = [
     tag: "Templates"
   }
 ] as const;
-

@@ -65,6 +65,15 @@ test("pages include SEO metadata, canonical URLs, and JSON-LD hooks", () => {
   assert.match(download, /softwareApplicationJsonLd/);
 });
 
+test("site includes Google Tag Manager container in head and noscript fallback", () => {
+  const product = read("src/config/product.ts");
+  const layout = read("src/layouts/BaseLayout.astro");
+  assert.match(product, /containerId:\s*"GTM-MNQDVZ6C"/);
+  assert.match(layout, /www\.googletagmanager\.com\/gtm\.js\?id=/);
+  assert.match(layout, /www\.googletagmanager\.com\/ns\.html\?id=/);
+  assert.match(layout, /product\.analytics\.gtm\.containerId/);
+});
+
 test("GitHub Pages deployment is configured for picmuse.app", () => {
   const workflowPath = join(root, "../../.github/workflows/deploy-pages.yml");
   assert.ok(existsSync(workflowPath));
