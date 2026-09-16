@@ -69,6 +69,7 @@ test("GitHub Pages deployment is configured for picmuse.app", () => {
   const workflowPath = join(root, "../../.github/workflows/deploy-pages.yml");
   assert.ok(existsSync(workflowPath));
   assert.equal(read("public/CNAME").trim(), "picmuse.app");
+  assert.ok(existsSync(join(root, "public/.nojekyll")));
   const workflow = readFileSync(workflowPath, "utf8");
   assert.match(workflow, /npm ci/);
   assert.match(workflow, /npm run build/);
