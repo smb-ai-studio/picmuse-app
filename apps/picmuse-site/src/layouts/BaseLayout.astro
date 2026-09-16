@@ -12,6 +12,7 @@ const { title, description, path, jsonLd } = Astro.props;
 const canonical = canonicalUrl(path);
 const jsonLdValue = JSON.stringify(jsonLd);
 const gtmContainerId = product.analytics.gtm.containerId;
+const googleSiteVerification = product.search.googleSiteVerification;
 ---
 
 <!doctype html>
@@ -22,6 +23,7 @@ const gtmContainerId = product.analytics.gtm.containerId;
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    <meta name="google-site-verification" content={googleSiteVerification} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />

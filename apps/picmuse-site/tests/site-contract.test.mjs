@@ -74,6 +74,14 @@ test("site includes Google Tag Manager container in head and noscript fallback",
   assert.match(layout, /product\.analytics\.gtm\.containerId/);
 });
 
+test("site includes Google Search Console verification metadata", () => {
+  const product = read("src/config/product.ts");
+  const layout = read("src/layouts/BaseLayout.astro");
+  assert.match(product, /googleSiteVerification:\s*"NDuvpj4EWo2fCHoUp7MYZr5hIvzzmySGtYXo9kWJbCg"/);
+  assert.match(layout, /name="google-site-verification"/);
+  assert.match(layout, /product\.search\.googleSiteVerification/);
+});
+
 test("GitHub Pages deployment is configured for picmuse.app", () => {
   const workflowPath = join(root, "../../.github/workflows/deploy-pages.yml");
   assert.ok(existsSync(workflowPath));

@@ -34,6 +34,9 @@ export const product = {
       storeClick: "store_click"
     }
   },
+  search: {
+    googleSiteVerification: "NDuvpj4EWo2fCHoUp7MYZr5hIvzzmySGtYXo9kWJbCg"
+  },
   utm: {
     utm_source: "picmuse_app",
     utm_medium: "official_site",
